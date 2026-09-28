@@ -68,7 +68,7 @@
     position:relative; max-width:460px; margin:0 auto; height:100vh; height:100dvh;
     background:var(--bg); display:flex; flex-direction:column; overflow:hidden;
   }
-  @media (min-width:520px){
+  @media (min-width:520px) and (max-width:899px){
     body{ padding:28px 0; display:flex; justify-content:center; }
     #appShell{
       min-height:min(920px, calc(100dvh - 56px)); height:min(920px, calc(100dvh - 56px));
@@ -279,6 +279,7 @@
   .bottom-nav button.active{ color:var(--gold-deep); }
   .bottom-nav .nav-fab{ width:52px; height:52px; border-radius:50%; background:var(--gold); color:var(--ink); display:flex; align-items:center; justify-content:center; font-size:1.55rem; margin-top:-26px; border:4px solid var(--bg-elevated); box-shadow:0 8px 18px rgba(var(--shadow-rgb),.3); flex:none; }
   .bottom-nav .nav-fab span{ display:none; }
+  .nav-brand{ display:none; }
 
   /* ---------- FILTER SHEET ---------- */
   .sheet-backdrop{ position:absolute; inset:0; background:rgba(var(--shadow-rgb),.5); z-index:60; display:none; }
@@ -356,6 +357,47 @@
   @keyframes splashBounce{ 0%,100%{ transform:translateY(0); opacity:.55; } 50%{ transform:translateY(-6px); opacity:1; } }
   @media (prefers-reduced-motion: reduce){
     #splashImg, #splashTitle, #splashDots, #splashDots span{ animation:none !important; opacity:1 !important; transform:none !important; }
+  }
+
+  /* ---------- DESKTOP LAYOUT ---------- */
+  @media (min-width:900px){
+    body{ padding:0; display:block; }
+    #appShell{
+      max-width:none; width:100%; height:100vh; height:100dvh;
+      border-radius:0; box-shadow:none; flex-direction:row;
+    }
+    .screen{ min-width:0; }
+    .nav-brand{
+      display:flex; align-items:center; gap:10px; padding:22px 20px 18px; flex:none;
+    }
+    .nav-brand-icon{ font-size:1.6rem; }
+    .nav-brand-text{ font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1.15rem; color:var(--ink); }
+    .bottom-nav{
+      order:-1; flex-direction:column; align-items:stretch; justify-content:flex-start;
+      width:236px; height:100%; padding:6px 14px 20px; gap:4px;
+      box-shadow:6px 0 20px rgba(var(--shadow-rgb),.06); border-right:1px solid var(--line);
+    }
+    .bottom-nav button{
+      flex-direction:row; justify-content:flex-start; gap:12px; height:auto; padding:12px 14px;
+      border-radius:14px; font-size:1.2rem;
+    }
+    .bottom-nav button span{ font-size:.88rem; font-weight:800; }
+    .bottom-nav button.active{ background:var(--gold-soft); }
+    .bottom-nav .nav-fab{
+      order:-1; width:100%; height:auto; border-radius:14px; margin:6px 0 14px; border:none;
+      flex-direction:row; gap:10px; padding:13px 14px; font-size:1.3rem;
+      box-shadow:0 8px 18px rgba(var(--shadow-rgb),.22);
+    }
+    .bottom-nav .nav-fab .nav-fab-label{ display:inline; font-size:.9rem; font-weight:800; }
+    .list-scroll{ display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); align-content:start; }
+    .profile-header, .profile-stats, .cuisine-bars, .champ-card, .section-label{
+      max-width:680px; margin-left:auto; margin-right:auto;
+    }
+    .detail-scroll{ max-width:680px; margin:0 auto; width:100%; }
+    .filter-sheet{
+      left:auto; right:28px; bottom:28px; width:380px; border-radius:22px;
+      box-shadow:0 20px 50px rgba(var(--shadow-rgb),.25);
+    }
   }
 </style>
 <style id="leaflet-css">
@@ -1124,9 +1166,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
   <!-- ============ BOTTOM NAV ============ -->
   <nav class="bottom-nav">
+    <div class="nav-brand"><span class="nav-brand-icon">🍝</span><span class="nav-brand-text">Il Torre</span></div>
     <button data-tab="map" class="active" type="button">🗺️<span>Mappa</span></button>
     <button data-tab="list" type="button">📋<span>Lista</span></button>
-    <button class="nav-fab" id="navAdd" type="button" aria-haspopup="dialog" title="Aggiungi un consiglio">＋</button>
+    <button class="nav-fab" id="navAdd" type="button" aria-haspopup="dialog" title="Aggiungi un consiglio">＋<span class="nav-fab-label">Aggiungi</span></button>
     <button data-tab="fav" type="button">❤️<span>Preferiti</span></button>
     <button data-tab="profile" type="button">👤<span>Profilo</span></button>
   </nav>
